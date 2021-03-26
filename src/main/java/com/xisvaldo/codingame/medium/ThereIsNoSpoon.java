@@ -24,7 +24,7 @@ public class ThereIsNoSpoon {
   private static void findNeighbors(int width, int height, String[] lines) {
     ArrayList<Node> nodes = new ArrayList<>(width * height);
 
-    Node[] currentVerticals = new Node[width];
+    Node[] lastVerticals = new Node[width];
     Node currentHorizontal;
 
     for (int y = 0; y < height; y++) {
@@ -35,9 +35,9 @@ public class ThereIsNoSpoon {
           Node node = new Node(x, y);
           nodes.add(node);
 
-          if (currentVerticals[x] != null)
-            currentVerticals[x].setBottom(node);
-          currentVerticals[x] = node;
+          if (lastVerticals[x] != null)
+            lastVerticals[x].setBottom(node);
+          lastVerticals[x] = node;
 
           if (currentHorizontal != null)
             currentHorizontal.setRight(node);
@@ -47,8 +47,7 @@ public class ThereIsNoSpoon {
     }
 
     for (Node node : nodes) {
-      System.out.println(String.format("%s %s %s", node.toString(), node.getRightCoordinates(),
-          node.getBottomCoordinates()));
+      System.out.printf("%s %s %s%n", node.toString(), node.getRightCoordinates(), node.getBottomCoordinates());
     }
   }
 
