@@ -1,4 +1,4 @@
-package com.xisvaldo.codinggame.easy;
+package com.xisvaldo.codingame.easy;
 
 /**
  * @author leonardo.borges
