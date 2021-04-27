@@ -23,20 +23,15 @@ public class NonDivisibleSubSet {
 
     Arrays.fill(remainders, 0);
 
-    //Get the frequency of remainders
     for (int number : s) {
       remainders[number % k]++;
     }
 
-    //When k is even
     if (k % 2 == 0) {
       remainders[k / 2] = Math.min(remainders[k / 2], 1);
     }
-
-    //When number is divisible by k
     maximumSubset = Math.min(remainders[0], 1);
 
-    //Getting maximum remainders
     for (int i = 1; i <= (k / 2); i++) {
       maximumSubset += Math.max(remainders[i], remainders[k - i]);
     }

@@ -10,13 +10,6 @@ import java.util.List;
 public class QueensAttack {
 
   public static void main(String[] args) {
-    //TODO
-   /* int n = 4; //board n x n
-    int k = 0; //obstacles
-    int r_q = 4; //initial queen row
-    int c_q = 4; //initial queen column
-    int[][] obstacles = {};*/
-
     int n = 5; //board n x n
     int k = 3; //obstacles
     int r_q = 4; //initial queen row
@@ -57,7 +50,6 @@ public class QueensAttack {
     return validPosition;
   }
 
-  //precisa remover os pontos atras dos obstaculos tambem
   private static List<Point> removeObstacles(List<Point> possibleMovements, int[][] obstacles) {
 
     List<Point> obstaclesPoints = new ArrayList<>();

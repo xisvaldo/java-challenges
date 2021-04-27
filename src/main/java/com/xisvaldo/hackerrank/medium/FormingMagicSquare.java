@@ -7,7 +7,6 @@ public class FormingMagicSquare {
 
   public static void main(String[] args) {
 
-    // Always the middle of the square HAS to be 5 (in a 3x3 magic square)
     int[][] s = {{4, 9, 2}, {3, 5, 7}, {8, 1, 5}};
     System.out.println(formingMagicSquare(s));
   }

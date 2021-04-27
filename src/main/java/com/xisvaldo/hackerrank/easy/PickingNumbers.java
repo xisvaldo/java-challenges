@@ -15,7 +15,6 @@ public class PickingNumbers {
     System.out.println(pickingNumbers(a));
   }
 
-  //horrible solution :(
   public static int pickingNumbers(List<Integer> a) {
     a.sort(Comparator.naturalOrder());
 
