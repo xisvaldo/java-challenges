@@ -1,3 +1,5 @@
+package com.xisvaldo.codingame.bot.programming;
+
 import java.util.*;
 
 class CodersOfCaribbean {
@@ -9,7 +11,8 @@ class CodersOfCaribbean {
     while (true) {
       int myShipCount = in.nextInt(); // the number of remaining ships
       int entityCount = in.nextInt(); // the number of entities (e.g. ships, mines or cannonballs)
-      List<Ship> ships = new ArrayList<>();
+      List<Ship> myShips = new ArrayList<>();
+      List<Ship> enemyShips = new ArrayList<>();
       List<Barrel> barrels = new ArrayList<>();
 
       for (int i = 0; i < entityCount; i++) {
@@ -24,7 +27,10 @@ class CodersOfCaribbean {
 
         if (entityType.equals("SHIP")) {
           Ship ship = new Ship(entityId, x, y, arg1, arg2, arg3, arg4);
-          ships.add(ship);
+          if (ship.isAllied)
+            myShips.add(ship);
+          else
+            enemyShips.add(ship);
         }
         else if (entityType.equals("BARREL")) {
           Barrel barrel = new Barrel(entityId, x, y, arg1);
@@ -32,19 +38,19 @@ class CodersOfCaribbean {
         }
       }
 
-      List<Ship> myShips = new ArrayList<>();
-      for (int i = 0; i < ships.size(); i++) {
-        if (ships.get(i).isAllied()) {
-          myShips.add(ships.get(i));
-        }
-      }
-
       for (Ship myShip : myShips) {
-        if (barrels.size() > 0) {
-          System.out.println(String.format("MOVE %d %d", barrels.get(0).getX(), barrels.get(0).getY()));
-          myShip.setX(barrels.get(0).getX());
-          myShip.setY(barrels.get(0).getY());
-          barrels.remove(0);
+        if (myShip.getDistance(enemyShips.get(0)) < Math.pow(5, 2))
+          System.out.printf("FIRE %d %d%n", enemyShips.get(0).getX(), enemyShips.get(0).getY());
+        else {
+          Optional<Barrel> closestBarrel =  barrels.stream().min((barrel, t1) -> barrel.getDistance(myShip));
+          if (closestBarrel.isPresent()) {
+            System.out.printf("MOVE %d %d%n", barrels.get(0).getX(), barrels.get(0).getY());
+            myShip.setX(barrels.get(0).getX());
+            myShip.setY(barrels.get(0).getY());
+            barrels.remove(0);
+          }
+          else
+            System.out.println("WAIT");
         }
       }
     }
@@ -68,6 +74,10 @@ class Entity {
   public int getY() { return this.y; }
   public void setX(int x) { this.x = x; }
   public void setY(int y) { this.y = y; }
+
+  public int getDistance(Entity b) {
+    return (int) (Math.pow(this.x - b.getX(), 2) + Math.pow(this.y - b.getY(), 2));
+  }
 }
 
 class Ship extends Entity {
