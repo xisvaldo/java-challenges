@@ -23,5 +23,4 @@ public class Temperatures {
 
     System.out.println(closest);
   }
-  
 }
